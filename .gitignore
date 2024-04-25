@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 
+# api keys
+lib/api/gemini_apikey.dart
+
 # IntelliJ related
 *.iml
 *.ipr
