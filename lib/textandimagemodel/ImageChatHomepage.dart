@@ -168,7 +168,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
   List<String> Sampleprompts = [
     "Ask me about the impact of renewable energy on the environment 🌱🔋",
     "Need recommendations for healthy recipes or dietary tips? I've got you covered! 🥗🍎",
-    "Want insights into the future of space exploration and colonization? Ask me anything! 🚀🌌"
+    "Want insights into space exploration and colonization?🚀🌌"
   ];
 
   @override
@@ -218,12 +218,12 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                                     _sendChatMessage(Sampleprompts[0]);
                                     _textController.clear();
                                   },
-                                  title: Text(Sampleprompts[0]),
-                                  subtitle: Text('Renewable Energy'),
+                                  subtitle: Text(Sampleprompts[0]),
+                                  title: Text('Renewable Energy'),
                                   leading: Icon(Icons.eco),
                                 ),
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 12),
                               Card(
                                 child: ListTile(
                                   onTap: () {
@@ -231,25 +231,12 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                                     _sendChatMessage(Sampleprompts[1]);
                                     _textController.clear();
                                   },
-                                  title: Text(Sampleprompts[1]),
-                                  subtitle: Text('Healthy Recipes'),
+                                  subtitle: Text(Sampleprompts[1]),
+                                  title: Text('Healthy Recipes'),
                                   leading: Icon(Icons.food_bank),
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              Card(
-                                child: ListTile(
-                                  onTap: () {
-                                    _textController.text = Sampleprompts[2];
-                                    _sendChatMessage(Sampleprompts[2]);
-                                    _textController.clear();
-                                  },
-                                  title: Text(Sampleprompts[2]),
-                                  subtitle: Text('Space Exploration'),
-                                  leading: Icon(Icons.airplanemode_active),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 12),
                               ElevatedButton(
                                 onPressed: () {
                                   // Action when the user clicks the button
@@ -324,7 +311,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                     // color: Colors.red,
                     child: const LoadingIndicator(
                         indicatorType: Indicator.ballPulse,
-                        colors: const [Colors.white, Colors.amber, Colors.pink],
+                        colors: const [Colors.blue, Colors.amber, Colors.pink],
 
                         /// Optional, The color collections
                         strokeWidth: 1,

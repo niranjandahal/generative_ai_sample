@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:generativeai/api/gemini_apikey.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class Textchatwidget extends StatefulWidget {
   const Textchatwidget({
@@ -12,16 +13,27 @@ class Textchatwidget extends StatefulWidget {
 }
 
 class _TextchatwidgetState extends State<Textchatwidget> {
+  final ScrollController _scrollController = ScrollController();
   late final GenerativeModel _model;
   late final ChatSession _chat;
   final TextEditingController _textController = TextEditingController();
   final List<String> _messages = [];
+
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
     _model = GenerativeModel(model: 'gemini-pro', apiKey: apikey);
     _chat = _model.startChat();
+  }
+
+  void _scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 5),
+      curve: Curves.easeOutCirc,
+    );
   }
 
   @override
@@ -32,6 +44,7 @@ class _TextchatwidgetState extends State<Textchatwidget> {
 
   Future<void> _sendMessage(String text) async {
     setState(() {
+      _loading = true;
       _messages.add(text);
     });
     try {
@@ -39,15 +52,17 @@ class _TextchatwidgetState extends State<Textchatwidget> {
         Content.text(text),
       );
       String generatedText = '';
+      _messages.add('');
       await for (final chunk in response) {
         for (int i = 0; i < chunk.text!.length; i++) {
           generatedText += chunk.text![i];
-          setState(() {
-            _messages[_messages.length - 1] = generatedText;
-          });
-          await Future.delayed(
-              Duration(milliseconds: 5)); // Adjust the speed here
         }
+        setState(() {
+          _loading = false;
+          _messages[_messages.length - 1] = generatedText;
+        });
+        _scrollDown(); // Scroll down after updating the UI
+        await Future.delayed(Duration(milliseconds: 1));
       }
     } catch (e) {
       print('Error: $e');
@@ -58,20 +73,52 @@ class _TextchatwidgetState extends State<Textchatwidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: _messages.length,
-            itemBuilder: (context, index) {
-              final message = _messages[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                child: MessageWidget(
-                  text: message,
+        _messages.isEmpty
+            ? Expanded(
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Start chatting with the AI',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Container(
+                          height: 20,
+                          width: 20,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.ballPulseSync,
+                            colors: [
+                              Colors.blue,
+                              Colors.red,
+                              Colors.yellow,
+                            ],
+                          ))
+                    ],
+                  ),
                 ),
-              );
-            },
-          ),
-        ),
+              )
+            : Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: _messages.length,
+                  itemBuilder: (context, index) {
+                    final message = _messages[index];
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                      child: MessageWidget(
+                        text: message,
+                      ),
+                    );
+                  },
+                ),
+              ),
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
@@ -81,7 +128,9 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                   controller: _textController,
                   decoration: InputDecoration(
                     hintText: 'Enter your message...',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
                   onSubmitted: (value) {
                     _sendMessage(value.trim());
@@ -90,16 +139,25 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                 ),
               ),
               SizedBox(width: 8.0),
-              IconButton(
-                icon: Icon(Icons.send),
-                onPressed: () {
-                  final text = _textController.text.trim();
-                  if (text.isNotEmpty) {
-                    _sendMessage(text);
-                    _textController.clear();
-                  }
-                },
-              ),
+              if (_loading)
+                Container(
+                  height: 30,
+                  width: 30,
+                  child: LoadingIndicator(
+                      indicatorType: Indicator.ballPulse,
+                      colors: [Colors.blue, Colors.red, Colors.yellow]),
+                )
+              else
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    final text = _textController.text.trim();
+                    if (text.isNotEmpty) {
+                      _sendMessage(text);
+                      _textController.clear();
+                    }
+                  },
+                ),
             ],
           ),
         ),
@@ -117,23 +175,49 @@ class MessageWidget extends StatelessWidget {
   final String? text;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 520),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 20,
-                ),
-                margin: const EdgeInsets.only(bottom: 8),
-                child: Column(children: [
-                  if (text case final text?) MarkdownBody(data: text),
-                ]))),
-      ],
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      color: Theme.of(context)
+          .cardColor, // Use primary color as the background color for the card
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MarkdownBody(
+          data: text ?? '',
+          styleSheet: MarkdownStyleSheet(
+            p: TextStyle(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onPrimaryContainer), // Use secondary color for text inside the card
+          ),
+        ),
+      ),
     );
   }
 }
+// class MessageWidget extends StatelessWidget {
+//   const MessageWidget({
+//     Key? key,
+//     this.text,
+//   }) : super(key: key);
+
+//   final String? text;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       margin: const EdgeInsets.all(8.0),
+//       color: Theme.of(context).primaryColor,
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: MarkdownBody(
+//           data: text ?? '',
+//           styleSheet: MarkdownStyleSheet(
+//             p: TextStyle(
+//               color: Theme.of(context).colorScheme.onPrimary,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

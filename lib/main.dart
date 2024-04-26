@@ -63,12 +63,26 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               ListTile(
                 title: _isvisionmodel
-                    ? const Text("Switch to Text Only")
-                    : const Text("Switch to Image and Text"),
+                    ? const Text("Switch to Text Only Model")
+                    : const Text("Switch to Image and Text Model"),
                 onTap: () {
                   setState(() {
                     _isvisionmodel = !_isvisionmodel;
                   });
+                },
+              ),
+
+              //at last some more option like exit and about us
+              ListTile(
+                title: const Text("About Us"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: const Text("Exit"),
+                onTap: () {
+                  Navigator.of(context).pop();
                 },
               ),
             ],
