@@ -6,8 +6,8 @@ import 'package:loading_indicator/loading_indicator.dart';
 
 class Textchatwidget extends StatefulWidget {
   const Textchatwidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   _TextchatwidgetState createState() => _TextchatwidgetState();
 }
@@ -62,10 +62,10 @@ class _TextchatwidgetState extends State<Textchatwidget> {
           _messages[_messages.length - 1] = generatedText;
         });
         _scrollDown(); // Scroll down after updating the UI
-        await Future.delayed(Duration(milliseconds: 1));
+        await Future.delayed(const Duration(milliseconds: 1));
       }
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
     }
   }
 
@@ -74,7 +74,7 @@ class _TextchatwidgetState extends State<Textchatwidget> {
     return Column(
       children: [
         _messages.isEmpty
-            ? Expanded(
+            ? const Expanded(
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -87,8 +87,8 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 8.0),
-                      Container(
+                      SizedBox(width: 8.0),
+                      SizedBox(
                           height: 20,
                           width: 20,
                           child: LoadingIndicator(
@@ -110,8 +110,8 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                   itemBuilder: (context, index) {
                     final message = _messages[index];
                     return Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 8.0),
                       child: MessageWidget(
                         text: message,
                       ),
@@ -120,7 +120,7 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                 ),
               ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Expanded(
@@ -138,9 +138,9 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                   },
                 ),
               ),
-              SizedBox(width: 8.0),
+              const SizedBox(width: 8.0),
               if (_loading)
-                Container(
+                const SizedBox(
                   height: 30,
                   width: 30,
                   child: LoadingIndicator(
@@ -149,7 +149,7 @@ class _TextchatwidgetState extends State<Textchatwidget> {
                 )
               else
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () {
                     final text = _textController.text.trim();
                     if (text.isNotEmpty) {

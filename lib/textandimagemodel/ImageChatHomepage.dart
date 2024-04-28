@@ -62,8 +62,58 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
     });
     try {
       final ImagePicker picker = ImagePicker();
+      // Show options for the user to select image from gallery or capture from camera
+      final ImageSource? source = await showDialog<ImageSource>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Select Image Source'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Icon(Icons.photo_library),
+                      SizedBox(width: 20),
+                      Text('Gallery'),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop(ImageSource.gallery);
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: GestureDetector(
+                    child: const Row(
+                      children: [
+                        Icon(Icons.camera_alt_outlined),
+                        SizedBox(width: 20),
+                        Text('Camera'),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop(ImageSource.camera);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (source == null) {
+        setState(() {
+          _loading = false;
+        });
+        return;
+      }
+
+      final XFile? image = await picker.pickImage(source: source);
       if (image == null) {
         setState(() {
           _loading = false;
@@ -103,7 +153,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
       setState(() {
         _loading = false;
       });
-      _textFieldFocus.requestFocus();
+      // _textFieldFocus.requestFocus();
     }
   }
 
@@ -139,7 +189,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
       setState(() {
         _loading = false;
       });
-      _textFieldFocus.requestFocus();
+      // _textFieldFocus.requestFocus();
     }
   }
 
@@ -219,8 +269,8 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                                     _textController.clear();
                                   },
                                   subtitle: Text(Sampleprompts[0]),
-                                  title: Text('Renewable Energy'),
-                                  leading: Icon(Icons.eco),
+                                  title: const Text('Renewable Energy'),
+                                  leading: const Icon(Icons.eco),
                                 ),
                               ),
                               const SizedBox(height: 12),
@@ -232,8 +282,8 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                                     _textController.clear();
                                   },
                                   subtitle: Text(Sampleprompts[1]),
-                                  title: Text('Healthy Recipes'),
-                                  leading: Icon(Icons.food_bank),
+                                  title: const Text('Healthy Recipes'),
+                                  leading: const Icon(Icons.food_bank),
                                 ),
                               ),
                               const SizedBox(height: 12),
@@ -241,7 +291,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                                 onPressed: () {
                                   // Action when the user clicks the button
                                 },
-                                child: Text('Ask Me Anything'),
+                                child: const Text('Ask Me Anything'),
                               ),
                             ],
                           ),
@@ -285,7 +335,7 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                 ),
                 Expanded(
                   child: TextField(
-                    autofocus: true,
+                    autofocus: false,
                     focusNode: _textFieldFocus,
                     decoration: textFieldDecoration,
                     controller: _textController,
@@ -305,13 +355,13 @@ class _ImagechatwidgetState extends State<Imagechatwidget> {
                     ),
                   )
                 else
-                  Container(
+                  const SizedBox(
                     height: 25,
                     width: 25,
                     // color: Colors.red,
-                    child: const LoadingIndicator(
+                    child: LoadingIndicator(
                         indicatorType: Indicator.ballPulse,
-                        colors: const [Colors.blue, Colors.amber, Colors.pink],
+                        colors: [Colors.blue, Colors.amber, Colors.pink],
 
                         /// Optional, The color collections
                         strokeWidth: 1,

@@ -33,6 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Instant Generative AI',
       theme: ThemeData.light(), // Set default theme to light mode
       darkTheme: ThemeData.dark(), // Set dark theme
