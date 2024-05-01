@@ -72,20 +72,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   });
                 },
               ),
-
-              //at last some more option like exit and about us
-              ListTile(
-                title: const Text("About Us"),
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              ListTile(
-                title: const Text("Exit"),
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
             ],
           ),
         ),
@@ -106,6 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
         body: _isvisionmodel ? const Imagechatwidget() : const Textchatwidget(),
+        
       ),
     );
   }

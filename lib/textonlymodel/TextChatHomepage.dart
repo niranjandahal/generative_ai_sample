@@ -63,6 +63,8 @@ class _TextchatwidgetState extends State<Textchatwidget> {
         });
         _scrollDown(); // Scroll down after updating the UI
         await Future.delayed(const Duration(milliseconds: 1));
+
+        _scrollDown();
       }
     } catch (e) {
       // print('Error: $e');
@@ -194,30 +196,3 @@ class MessageWidget extends StatelessWidget {
     );
   }
 }
-// class MessageWidget extends StatelessWidget {
-//   const MessageWidget({
-//     Key? key,
-//     this.text,
-//   }) : super(key: key);
-
-//   final String? text;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       margin: const EdgeInsets.all(8.0),
-//       color: Theme.of(context).primaryColor,
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: MarkdownBody(
-//           data: text ?? '',
-//           styleSheet: MarkdownStyleSheet(
-//             p: TextStyle(
-//               color: Theme.of(context).colorScheme.onPrimary,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
