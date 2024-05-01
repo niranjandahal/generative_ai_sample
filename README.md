@@ -1,4 +1,4 @@
-g# Ai ChatApp using Gemini
+## Ai ChatApp using Gemini
 
 This Chatbot App is a simple Flutter application that demonstrates how to integrate the Gemini API to create a chatbot interface. With this app, users can interact with the chatbot to perform various tasks.
 
@@ -21,7 +21,7 @@ This Chatbot App is a simple Flutter application that demonstrates how to integr
 
 ## Features
 - **Gemini API Integration:** Utilizes Gemini API to power the chatbot functionality.
-- - **Image and text prompting:** User can either use text or image as prompt.
+- **Image and text prompting:** User can either use text or image as prompt.
 - **Flutter UI:** Developed with Flutter for a smooth and responsive user interface.
 - **Simple Interface:** Easy-to-use chat interface for seamless communication with the chatbot.
 
@@ -45,7 +45,12 @@ This Chatbot App is a simple Flutter application that demonstrates how to integr
     flutter pub get
     ```
 
-4. Run the app:
+4. Get an api key from gemini
+
+   headover to gemini and get and api key https://ai.google.dev/gemini-api/docs/api-key
+   place your api key in lib/api/apikey.dart
+
+6. Run the app:
 
     ```bash
     flutter run
