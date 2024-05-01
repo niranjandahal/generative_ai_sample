@@ -1,16 +1,20 @@
-# Ai ChatApp using Gemini
+g# Ai ChatApp using Gemini
 
 This Chatbot App is a simple Flutter application that demonstrates how to integrate the Gemini API to create a chatbot interface. With this app, users can interact with the chatbot to perform various tasks.
 
 ## Screenshots
 
-![Screenshot 1](https://github.com/niranjandahal/generative_ai_sample/blob/main/s1.jpg)(:width="300px")
+<img src="https://github.com/niranjandahal/generative_ai_sample/blob/main/s1.jpg" width="300">
 
-![Screenshot 2](https://github.com/niranjandahal/generative_ai_sample/blob/main/s2.jpg){:width="300px"}
 
-![Screenshot 3](https://github.com/niranjandahal/generative_ai_sample/blob/main/s3.jpg){:width="300px"}
+<img src="https://github.com/niranjandahal/generative_ai_sample/blob/main/s2.jpg" width="300">
 
-![Screenshot 4](https://github.com/niranjandahal/generative_ai_sample/blob/main/s4.jpg){:width="300px"}
+
+<img src="https://github.com/niranjandahal/generative_ai_sample/blob/main/s3.jpg" width="300">
+
+
+<img src="https://github.com/niranjandahal/generative_ai_sample/blob/main/s4.jpg" width="300">
+
 
 
 
