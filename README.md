@@ -1,12 +1,25 @@
-# Gemini Chatbot App
+# Ai ChatApp using Gemini
 
-![Gemini Chatbot App Demo](demo.gif)
+This Chatbot App is a simple Flutter application that demonstrates how to integrate the Gemini API to create a chatbot interface. With this app, users can interact with the chatbot to perform various tasks.
 
-Gemini Chatbot App is a simple Flutter application that demonstrates how to integrate the Gemini API to create a chatbot interface. With this app, users can interact with the chatbot to perform various tasks.
+## Screenshots
+
+![Screenshot 1](https://github.com/niranjandahal/generative_ai_sample/blob/main/s1.jpg)
+*Description of the screenshot.*
+
+![Screenshot 2](https://github.com/niranjandahal/generative_ai_sample/blob/main/s2.jpg)
+*Description of the screenshot.*
+
+![Screenshot 1](https://github.com/niranjandahal/generative_ai_sample/blob/main/s3.jpg)
+*Description of the screenshot.*
+
+![Screenshot 2](https://github.com/niranjandahal/generative_ai_sample/blob/main/s4.jpg)
+*Description of the screenshot.*
+
 
 ## Features
-
 - **Gemini API Integration:** Utilizes Gemini API to power the chatbot functionality.
+- - **Image and text prompting:** User can either use text or image as prompt.
 - **Flutter UI:** Developed with Flutter for a smooth and responsive user interface.
 - **Simple Interface:** Easy-to-use chat interface for seamless communication with the chatbot.
 
@@ -15,13 +28,13 @@ Gemini Chatbot App is a simple Flutter application that demonstrates how to inte
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/gemini-chatbot-app.git
+    git clone [https://github.com/yourusername/gemini-chatbot-app.git](https://github.com/niranjandahal/generative_ai_sample)
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd gemini-chatbot-app
+    cd generative_ai_sample
     ```
 
 3. Install dependencies:
@@ -43,14 +56,6 @@ Gemini Chatbot App is a simple Flutter application that demonstrates how to inte
 3. Press the send button or hit enter to send your message.
 4. The chatbot will respond with relevant information or perform the requested action.
 
-## Screenshots
-
-![Screenshot 1](screenshots/screenshot1.png)
-*Description of the screenshot.*
-
-![Screenshot 2](screenshots/screenshot2.png)
-*Description of the screenshot.*
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you encounter any problems or have any suggestions for improvement.
@@ -66,4 +71,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries or feedback, please contact [your@email.com](mailto:your@email.com).
+For any inquiries or feedback,
